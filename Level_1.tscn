@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://bnu4141vban8o"]
+
+[ext_resource type="Script" path="res://Level_1.cs" id="1_eh3r0"]
+[ext_resource type="Texture2D" uid="uid://c0h8526ubis6b" path="res://purple.png" id="1_fhhiw"]
+[ext_resource type="PackedScene" uid="uid://bt6wgl0djfoig" path="res://player.tscn" id="2_7hlsd"]
+[ext_resource type="PackedScene" uid="uid://ct5moqorqhcgg" path="res://Maze.tscn" id="4_oqrax"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_m6pwd"]
+
+[sub_resource type="FontFile" id="FontFile_boj13"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qmg7p"]
+line_spacing = 50.0
+font = SubResource("FontFile_boj13")
+
+[node name="Level1" type="Node2D"]
+position = Vector2(190, 92)
+script = ExtResource("1_eh3r0")
+
+[node name="Player" parent="." instance=ExtResource("2_7hlsd")]
+position = Vector2(79, 95)
+
+[node name="Maze" parent="." instance=ExtResource("4_oqrax")]
+z_index = -10
+position = Vector2(150, 125)
+
+[node name="Graphics" type="Node" parent="."]
+
+[node name="ReachEnd2" type="Label" parent="Graphics"]
+offset_left = 13.0
+offset_top = 153.0
+offset_right = 362.0
+offset_bottom = 176.0
+rotation = -0.261799
+text = "Use the arrows or wasd to move"
+label_settings = SubResource("LabelSettings_m6pwd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Graphics"]
+layer = -10
+
+[node name="Background" type="TextureRect" parent="Graphics/CanvasLayer"]
+z_index = -100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_fhhiw")
+stretch_mode = 1
+
+[node name="StartLabel" type="Label" parent="Graphics"]
+offset_left = 250.0
+offset_top = 119.0
+offset_right = 290.0
+offset_bottom = 142.0
+text = "Start"
+label_settings = SubResource("LabelSettings_qmg7p")
+
+[node name="ReachEnd" type="Label" parent="Graphics"]
+offset_left = 12.0
+offset_top = 119.0
+offset_right = 361.0
+offset_bottom = 142.0
+rotation = -0.261799
+text = "Reach the End label without leaving the track"
+label_settings = SubResource("LabelSettings_m6pwd")
+
+[node name="EndLabel" type="Label" parent="Graphics"]
+offset_left = 874.0
+offset_top = 306.0
+offset_right = 914.0
+offset_bottom = 329.0
+rotation = 1.57079
+text = "End"
+label_settings = SubResource("LabelSettings_qmg7p")
+
+[connection signal="body_exited" from="Maze" to="." method="OnBodyExited"]
